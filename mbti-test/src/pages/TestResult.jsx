@@ -1,3 +1,3 @@
-const TestResult = () => {}
+const TestResult = () => {};
 
-export default TestResult
+export default TestResult;

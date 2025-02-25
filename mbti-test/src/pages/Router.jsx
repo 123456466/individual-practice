@@ -5,18 +5,21 @@ import MbtiTest from "./MbtiTest";
 import Profile from "./profile";
 import Signup from "./signup";
 import TestResult from "./TestResult";
+import Layout from "./Layout";
 
 const App = () => {
-    return (
-        <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/mbti-test" element={<MbtiTest/>}/>
-            <Route path="/profile" element={<Profile/>}/>
-            <Route path="/signup" element={<Signup/>}/>
-            <Route path="/test-result" element={<TestResult/>}/>
-        </Routes>
-        </BrowserRouter>
-    )
-}
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/mbti-test" element={<MbtiTest />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/test-result" element={<TestResult />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
