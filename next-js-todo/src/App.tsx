@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getTodos, type Todo } from "./todos";
 import "./App.css";
 
+type completedTodo = Omit<Todo, "title">;
+
 function App() {
   const [todoItme, setTodoItme] = useState<Todo[]>([]);
   useEffect(() => {
@@ -40,9 +42,33 @@ function App() {
     setTodoItme((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const completedTodoHandel = async ({ id, completed }: completedTodo) => {
+    await fetch(`http://localhost:4000/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        completed: !completed,
+      }),
+    });
+    setTodoItme((prev) =>
+      prev.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !completed,
+          };
+        }
+        return todo;
+      })
+    );
+  };
+
   return (
     <>
-      <TodoList todoList={todoItme} ondelClick={delTodoHandle} />
+      <TodoList
+        todoList={todoItme}
+        onDelClick={delTodoHandle}
+        onCompletedClick={completedTodoHandel}
+      />
       <input
         type="text"
         placeholder="할일을 적어주세요."
@@ -54,23 +80,41 @@ function App() {
   );
 }
 
-type TodoListProps = { todoList: Todo[]; ondelClick: (id: Todo["id"]) => void };
-function TodoList({ todoList, ondelClick }: TodoListProps) {
+type TodoListProps = {
+  todoList: Todo[];
+  onDelClick: (id: Todo["id"]) => void;
+  onCompletedClick: (completedTodo: completedTodo) => void;
+};
+type TodoItemeProps = Todo & { onDelClick: (id: Todo["id"]) => void } & {
+  onCompletedClick: (completedTodo: completedTodo) => void;
+};
+
+function TodoList({ todoList, onDelClick, onCompletedClick }: TodoListProps) {
   return (
     <>
       {todoList.map((todo) => (
-        <TodoItem key={todo.id} {...todo} onDelClick={ondelClick} />
+        <TodoItem
+          key={todo.id}
+          {...todo}
+          onDelClick={onDelClick}
+          onCompletedClick={onCompletedClick}
+        />
       ))}
     </>
   );
 }
 
-type TodoItemeProps = Todo & { onDelClick: (id: Todo["id"]) => void };
-function TodoItem({ id, title, completed, onDelClick }: TodoItemeProps) {
+function TodoItem({
+  id,
+  title,
+  completed,
+  onDelClick,
+  onCompletedClick,
+}: TodoItemeProps) {
   return (
     <div>
       <div>{id}</div>
-      <div>{title}</div>
+      <div onClick={() => onCompletedClick({ id, completed })}>{title}</div>
       <div>{`${completed}`}</div>
       <button onClick={() => onDelClick(id)}>삭제</button>
     </div>
