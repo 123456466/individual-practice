@@ -4,21 +4,6 @@
       "id": "1",
       "title": "title",
       "completed": false
-    },
-    {
-      "id": "16e3aed8-3078-42c9-b229-29e32ca16cb3",
-      "title": "테스트용 텍스트",
-      "completed": false
-    },
-    {
-      "id": "3375aa55-3c5d-4aae-9865-47f5ae86ab5b",
-      "title": "테스트용 텍스트",
-      "completed": false
-    },
-    {
-      "id": "0a49de9d-c23f-40ec-bb29-6d3d17b50817",
-      "title": "바로 적용 되고있나",
-      "completed": false
     }
   ]
 }
