@@ -10,7 +10,7 @@ function App() {
 
   const [title, setTitle] = useState("");
 
-  const upadtaTodoHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const upadteTitleHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
@@ -32,13 +32,21 @@ function App() {
     setTitle("");
   };
 
+  const delTodoHandle = async (id: Todo["id"]) => {
+    await fetch(`http://localhost:4000/todos/${id}`, {
+      method: "DELETE",
+    });
+
+    setTodoItme((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   return (
     <>
-      <TodoList todoList={todoItme} />
+      <TodoList todoList={todoItme} ondelClick={delTodoHandle} />
       <input
         type="text"
         placeholder="할일을 적어주세요."
-        onChange={upadtaTodoHandle}
+        onChange={upadteTitleHandle}
         value={title}
       />
       <button onClick={addTodoHandle}>등록</button>
@@ -46,23 +54,25 @@ function App() {
   );
 }
 
-type TodoListProps = { todoList: Todo[] };
-function TodoList({ todoList }: TodoListProps) {
+type TodoListProps = { todoList: Todo[]; ondelClick: (id: Todo["id"]) => void };
+function TodoList({ todoList, ondelClick }: TodoListProps) {
   return (
     <>
       {todoList.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
+        <TodoItem key={todo.id} {...todo} onDelClick={ondelClick} />
       ))}
     </>
   );
 }
 
-function TodoItem({ id, title, completed }: Todo) {
+type TodoItemeProps = Todo & { onDelClick: (id: Todo["id"]) => void };
+function TodoItem({ id, title, completed, onDelClick }: TodoItemeProps) {
   return (
     <div>
       <div>{id}</div>
       <div>{title}</div>
       <div>{`${completed}`}</div>
+      <button onClick={() => onDelClick(id)}>삭제</button>
     </div>
   );
 }
