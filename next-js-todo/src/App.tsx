@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getTodos, type Todo } from "./todos";
-import "./App.css";
 
 type completedTodo = Omit<Todo, "title">;
 
@@ -112,12 +111,18 @@ function TodoItem({
   onCompletedClick,
 }: TodoItemeProps) {
   return (
-    <div>
-      <div>{id}</div>
-      <div onClick={() => onCompletedClick({ id, completed })}>{title}</div>
-      <div>{`${completed}`}</div>
-      <button onClick={() => onDelClick(id)}>삭제</button>
-    </div>
+    <>
+      <div>
+        <div className={completed ? "line-through" : "no-underline"}>
+          {title}
+        </div>
+        <button onClick={() => onCompletedClick({ id, completed })}>
+          {completed ? "취소" : "완료"}
+        </button>
+        <button onClick={() => onDelClick(id)}>삭제</button>
+      </div>
+      <div>---------------------</div>
+    </>
   );
 }
 
