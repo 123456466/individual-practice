@@ -24,7 +24,7 @@ export const createTodo = async (title: string) => {
 };
 
 export const delTodo = async (id: Todo["id"]) => {
-  const response = await fetch(`TODOS_URL/${id}`, {
+  const response = await fetch(`${TODOS_URL}/${id}`, {
     method: "DELETE",
   });
 
@@ -37,7 +37,7 @@ export const completedTodo = async (
   id: Todo["id"],
   completed: Todo["completed"]
 ) => {
-  const response = await fetch(`TODOS_URL/${id}`, {
+  const response = await fetch(`${TODOS_URL}/${id}`, {
     method: "PATCH",
     headers: {
       "content-type": "application/json",
