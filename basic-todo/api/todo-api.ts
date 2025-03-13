@@ -1,9 +1,16 @@
+"use server";
+
 import { Todo } from "@/type/todo-type";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const TODOS_URL = "http://localhost:4000/todo";
 
 export const getTodos = async () => {
-  const response = await fetch(TODOS_URL);
+  const response = await fetch(TODOS_URL, {
+    next: {
+      tags: ["todos"],
+    },
+  });
   const data: Todo[] = await response.json();
 
   return data;
@@ -20,6 +27,8 @@ export const createTodo = async (title: string) => {
 
   const data: Todo = await response.json();
 
+  revalidateTag("todos");
+
   return data;
 };
 
@@ -29,6 +38,8 @@ export const delTodo = async (id: Todo["id"]) => {
   });
 
   const data: Todo = await response.json();
+
+  revalidateTag("todos");
 
   return data;
 };
@@ -46,6 +57,8 @@ export const completedTodo = async (
   });
 
   const data: Todo = await response.json();
+
+  revalidateTag("todos");
 
   return data;
 };

@@ -1,3 +1,6 @@
+"use client";
+
+import { completedTodo, delTodo } from "@/api/todo-api";
 import { Todo } from "@/type/todo-type";
 import React from "react";
 
@@ -6,12 +9,15 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ todo }: TodoItemProps) => {
+  const { id, title, completed } = todo;
   return (
     <div>
-      <h2>{todo.title}</h2>
+      <h2>{title}</h2>
       <div>
-        <button>{todo.completed ? "취소" : "완료"}</button>
-        <button>취소</button>
+        <button onClick={() => completedTodo(id, completed)}>
+          {completed ? "취소" : "완료"}
+        </button>
+        <button onClick={() => delTodo(id)}>삭제</button>
       </div>
     </div>
   );
