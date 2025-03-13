@@ -15,7 +15,7 @@ export const createTodo = async (title: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title, completed: false }),
+    body: JSON.stringify({ id: crypto.randomUUID(), title, completed: false }),
   });
 
   const data: Todo = await response.json();
