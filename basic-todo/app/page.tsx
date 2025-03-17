@@ -4,7 +4,7 @@ import React from "react";
 
 const HomePage = () => {
   return (
-    <section>
+    <section className="p-15">
       <TodoForm />
       <TodoList />
     </section>

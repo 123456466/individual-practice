@@ -21,7 +21,7 @@ const TodoForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex w-full max-w-sm items-center space-x-2 outline outline-black-500 p-4 rounded-sm"
+      className="flex w-full items-center space-x-2 outline outline-black-500 p-4 rounded-sm mb-5"
     >
       <Input
         type="text"

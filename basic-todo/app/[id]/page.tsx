@@ -1,5 +1,7 @@
 import { getTodoItem } from "@/api/todo-api";
 import TodoItem from "@/components/todo/TodoItem";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React from "react";
 
 interface DetailPageProps {
@@ -12,7 +14,13 @@ const DetailPage = async ({ params }: DetailPageProps) => {
 
   return (
     <section>
-      <TodoItem todo={todoItem} />
+      <div className="container mx-auto p-6">
+        <TodoItem todo={todoItem} />
+        <Link href="/">
+          {" "}
+          <Button className="w-full">돌아가기</Button>
+        </Link>
+      </div>
     </section>
   );
 };

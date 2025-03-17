@@ -4,6 +4,8 @@ import { completedTodo, delTodo } from "@/api/todo-api";
 import { Todo } from "@/type/todo-type";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 interface TodoItemProps {
   todo: Todo;
@@ -12,15 +14,23 @@ interface TodoItemProps {
 const TodoItem = ({ todo }: TodoItemProps) => {
   const { id, title, completed } = todo;
   return (
-    <article>
+    <article className="flex flex-row items-center justify-between bg-gray-300 p-3 my-2 rounded-sm">
       <Link href={`/${id}`} className="w-auto">
-        <h2>{title}</h2>
+        <h2 className={cn("hover:underline", { "line-through": completed })}>
+          {title}
+        </h2>
       </Link>
       <div>
-        <button onClick={() => completedTodo(id, completed)}>
+        <Button onClick={() => completedTodo(id, completed)}>
           {completed ? "취소" : "완료"}
-        </button>
-        <button onClick={() => delTodo(id)}>삭제</button>
+        </Button>
+        <Button
+          onClick={() => delTodo(id)}
+          className="mx-3"
+          variant="destructive"
+        >
+          삭제
+        </Button>
       </div>
     </article>
   );
