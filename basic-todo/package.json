@@ -10,6 +10,7 @@
     "server": "json-server --watch db.json --port 4000"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "json-server": "^1.0.0-beta.3",
