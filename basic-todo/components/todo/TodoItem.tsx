@@ -13,7 +13,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   const { id, title, completed } = todo;
   return (
     <article>
-      <Link href={`/${id}`}>
+      <Link href={`/${id}`} className="w-auto">
         <h2>{title}</h2>
       </Link>
       <div>

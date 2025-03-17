@@ -2,6 +2,8 @@
 
 import { createTodo } from "@/api/todo-api";
 import { FormEvent } from "react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const TodoForm = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -17,14 +19,17 @@ const TodoForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
+    <form
+      onSubmit={onSubmit}
+      className="flex w-full max-w-sm items-center space-x-2 outline outline-black-500 p-4 rounded-sm"
+    >
+      <Input
         type="text"
         placeholder="내용을 입력해주세요"
         name="todo-title"
         required
       />
-      <button type="submit">추가</button>
+      <Button type="submit">추가</Button>
     </form>
   );
 };
