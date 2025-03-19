@@ -1,18 +1,21 @@
 "use client";
 
-import { completedTodo, delTodo } from "@/api/todo-api";
+import { completedTodo } from "@/api/todo-api";
 import { Todo } from "@/type/todo-type";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { useDelTodoMutation } from "@/querys/useTodoMutation";
 
 interface TodoItemProps {
   todo: Todo;
 }
 
 const TodoItem = ({ todo }: TodoItemProps) => {
+  const { mutate: delTodo } = useDelTodoMutation();
   const { id, title, completed } = todo;
+
   return (
     <article className="flex flex-row items-center justify-between bg-gray-300 p-3 my-2 rounded-sm">
       <Link href={`/${id}`} className="w-auto">

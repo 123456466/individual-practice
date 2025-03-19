@@ -1,11 +1,24 @@
-import { createTodo } from "@/api/todo-api";
+import { createTodo, delTodo } from "@/api/todo-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useTodoMutation = () => {
+export const useCreateTodoMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createTodo,
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({
+        queryKey: ["todos"],
+      });
+    },
+  });
+};
+
+export const useDelTodoMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: delTodo,
     onSettled: async () => {
       return await queryClient.invalidateQueries({
         queryKey: ["todos"],
