@@ -6,7 +6,10 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { useDelTodoMutation } from "@/querys/useTodoMutation";
+import {
+  useCompletedTodoMutation,
+  useDelTodoMutation,
+} from "@/querys/useTodoMutation";
 
 interface TodoItemProps {
   todo: Todo;
@@ -14,6 +17,7 @@ interface TodoItemProps {
 
 const TodoItem = ({ todo }: TodoItemProps) => {
   const { mutate: delTodo } = useDelTodoMutation();
+  const { mutate: completedTodo } = useCompletedTodoMutation();
   const { id, title, completed } = todo;
 
   return (
@@ -24,7 +28,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
         </h2>
       </Link>
       <div>
-        <Button onClick={() => completedTodo(id, completed)}>
+        <Button onClick={() => completedTodo({ id, completed })}>
           {completed ? "취소" : "완료"}
         </Button>
         <Button
