@@ -3,9 +3,11 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import { useTodosQuery } from "@/querys/useTodoQuery";
+import { useTodoFilterStore } from "@/store/useTodoFilterStore";
 
 const TodoList = () => {
-  const { data: todos } = useTodosQuery();
+  const { filter } = useTodoFilterStore;
+  const { data: todos } = useTodosQuery(filter);
 
   if (!todos) return <div>로딩중...</div>;
 
