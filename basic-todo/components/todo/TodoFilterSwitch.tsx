@@ -13,7 +13,7 @@ const TodoFilterSwitch = () => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 m-2">
       <Switch
         id={switchId}
         checked={filter === "completed"}
