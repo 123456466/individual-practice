@@ -6,7 +6,7 @@ import { useTodosQuery } from "@/querys/useTodoQuery";
 import { useTodoFilterStore } from "@/store/useTodoFilterStore";
 
 const TodoList = () => {
-  const { filter } = useTodoFilterStore;
+  const { filter } = useTodoFilterStore();
   const { data: todos } = useTodosQuery(filter);
 
   if (!todos) return <div>로딩중...</div>;
