@@ -10,7 +10,7 @@ export const getTodos = async (filter?: FilterType) => {
     url.searchParams.set("completed", "true");
   }
 
-  const response = await fetch(TODOS_URL, {
+  const response = await fetch(url.toString(), {
     next: {
       tags: ["todos"],
     },
